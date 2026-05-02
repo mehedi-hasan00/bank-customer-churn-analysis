@@ -1,0 +1,24 @@
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Data files (Jehetu Kaggle link use korcho, local CSV ignore kora bhalo)
+*.csv
+!bank_churn_cleaned.csv
+*.xlsx
+
+# MS Word temporary files
+~$*.docx
+*.tmp
+*.docx
+
+# macOS specific
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Python environment (jodi thake)
+__pycache__/
+venv/
+env/
