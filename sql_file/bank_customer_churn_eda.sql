@@ -151,26 +151,51 @@ from bank_churn)
 
 -- Window Function:
 
--- For each country, show each customer's balance and the average balance of their country side by side.
+-- 19. For each country, show each customer's balance and the average balance of their country side by side.
 select country,
 balance,
 round(avg(balance) over(partition by country),2) as avg_bal
 from bank_churn
 
 
--- Rank countries by churn rate from highest to lowest.
+-- 20. Rank countries by churn rate from highest to lowest.
+select country,
+avg(churn)*100,
+rank() over(order by avg(churn)*100 desc)
+from bank_churn
+group by country
+
+
+-- 21. For each customer, show their credit score percentile within their country.
+select country,gender, age,
+credit_score,
+round(percent_rank() over(partition by country order by credit_score)*100,2) as credit_score_per
+from bank_churn
 
 
 
--- For each customer, show their credit score percentile within their country.
+-- 22. Show the top 3 customers by balance in each country.
+with bank_churn_cte as (select country, balance,
+row_number() over(partition by country order by balance desc) as row_num
+from bank_churn)
+select * 
+from bank_churn_cte
+where row_num <= 3
+
+-- Combined (Subquery + Window Function):
+
+-- 23. For each age group, compare their churn rate to the age group with the highest churn rate.
 
 
 
--- Show the top 3 customers by balance in each country.
+
+-- 24. Find customers whose balance is in the top 25% of their country but still churned.
 
 
 
 
+
+-- 25. Show each country's churn rate trend across age groups using cumulative sum.
 
 
 
